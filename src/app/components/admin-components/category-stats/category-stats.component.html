@@ -1,0 +1,51 @@
+<div>
+    <table class="table table-lg table-bordered table-hover" style="width:100%" matSort
+           (matSortChange)="sortData($event)">
+        <caption class="sr-only">Category Information</caption>
+        <thead class="thead-light">
+        <tr>
+            <th class="header-topic" [mat-sort-header]="'name'" scope="col">Topic</th>
+            <th [mat-sort-header]="'question_count'" scope="col">Available Questions</th>
+            <th [mat-sort-header]="'average_success'" scope="col">Average Success Rate</th>
+        </tr>
+        </thead>
+        <tbody class="table-striped">
+        <ng-container *ngIf="categoryStatData; else tableEmpty">
+            <ng-container *ngFor="let categoryStat of categoryStatData">
+                <tr [class.table-primary]="expanded[categoryStat.category.name]"
+                    (click)="toggleChildTopics(categoryStat)">
+                    <th>
+                    <span class="expanded-icon">
+                        <fa-icon [icon]=faCaretRight *ngIf="!expanded[categoryStat.category.name]"></fa-icon>
+                        <fa-icon [icon]=faCaretDown *ngIf="expanded[categoryStat.category.name]"></fa-icon>
+                    </span>
+                        {{ categoryStat.category.name }}
+                    </th>
+                    <td>{{ categoryStat.category.question_count }}</td>
+                    <td *ngIf="categoryStat.category.average_success">{{ categoryStat.category.average_success }}%</td>
+                    <td *ngIf="!categoryStat.category.average_success">-</td>
+                </tr>
+                <ng-container *ngIf="expanded[categoryStat.category.name]">
+                    <ng-container *ngFor="let subcat of categoryStat.children">
+                        <tr class="subcat-row">
+                            <td class="subcat-name"><span class="heavy-indent">{{ subcat.category.name }}</span></td>
+                            <td>{{ subcat.category.question_count }}</td>
+                            <td *ngIf="subcat.category.question_count">{{ subcat.category.average_success }}%</td>
+                            <td *ngIf="!subcat.category.question_count">-</td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+        <ng-template #tableEmpty>
+            <tr>
+                <td colspan="3" class="bg-info">
+                    <p class="text-center text-light m-0">
+                        No data was sent to this table.
+                    </p>
+                </td>
+            </tr>
+        </ng-template>
+        </tbody>
+    </table>
+</div>

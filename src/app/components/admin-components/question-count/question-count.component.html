@@ -1,0 +1,47 @@
+<div>
+    <table class="table table-lg table-bordered table-hover" style="width:100%" matSort (matSortChange)="sortData($event)">
+        <caption class="sr-only">Question Difficultly Information</caption>
+        <thead class="thead-light">
+        <tr>
+            <th class="header-topic" [mat-sort-header]="'name'" scope="col">Question Type</th>
+            <th>Difficulty</th>
+            <th [mat-sort-header]="'count'" scope="col">Number of questions</th>
+        </tr>
+        </thead>
+        <tbody class="table-striped">
+        <ng-container *ngIf="questionCountData; else tableEmpty">
+            <ng-container *ngFor="let row of questionCountData">
+                <tr [class.table-primary]="expanded[row.name]" (click)="toggleChildTopics(row)">
+                    <th>
+                    <span class="expanded-icon">
+                        <fa-icon [icon]=faCaretRight *ngIf="!expanded[row.name]"></fa-icon>
+                        <fa-icon [icon]=faCaretDown *ngIf="expanded[row.name]"></fa-icon>
+                    </span>
+                        {{ row.name }}
+                    </th>
+                    <td>ALL</td>
+                    <td>{{ row.count}}</td>
+                </tr>
+                <ng-container *ngIf="expanded[row.name]">
+                    <ng-container *ngFor="let difficulty of row.count_per_difficulty">
+                        <tr class="subcat-row">
+                            <td class="subcat-name"><span class="heavy-indent">{{ row.name }}</span></td>
+                            <td>{{ difficulty.difficulty }}</td>
+                            <td>{{ difficulty.count }}</td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+        <ng-template #tableEmpty>
+            <tr>
+                <td colspan="3" class="bg-info">
+                    <p class="text-center text-light m-0">
+                        No data was sent to this table.
+                    </p>
+                </td>
+            </tr>
+        </ng-template>
+        </tbody>
+    </table>
+</div>

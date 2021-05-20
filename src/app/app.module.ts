@@ -80,6 +80,9 @@ import {LeaderBoardComponent} from './components/course/leader-board/leader-boar
 import {SubmissionViewComponent} from '@app/components/problems/submission-view/submission-view.component';
 import {ActivationEmailComponent} from './components/accounts/activation-email/activation-email.component';
 import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
+import { AdminComponent } from './components/admin-components/admin/admin.component';
+import { QuestionCountComponent } from './components/admin-components/question-count/question-count.component';
+import { CategoryStatsComponent } from './components/admin-components/category-stats/category-stats.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
@@ -137,6 +140,9 @@ import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
         LeaderBoardComponent,
         SubmissionViewComponent,
         ActivationEmailComponent,
+        AdminComponent,
+        QuestionCountComponent,
+        CategoryStatsComponent,
     ],
     imports: [
         BrowserModule,

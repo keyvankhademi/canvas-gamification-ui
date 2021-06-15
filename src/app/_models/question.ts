@@ -24,7 +24,7 @@ export interface Question {
     author_name: string;
     choices: { [index: string]: string };
     variables: [];
-    input_file_names: [];
+    input_file_names: JSON;
     answer: string;
     junit_template: string;
     lines: string[];

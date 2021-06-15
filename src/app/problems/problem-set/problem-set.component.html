@@ -97,6 +97,9 @@
                 <a class="action-icon btn btn-warning faPencilAlt mr-2" [routerLink]="[question.id, 'edit']">
                     <fa-icon [icon]="faPencilAlt"></fa-icon>
                 </a>
+                <a class="action-icon btn btn-secondary faDownload mr-2" (click)="downloadQuestion(question.id)">
+                    <fa-icon [icon]="faDownload"></fa-icon>
+                </a>
                 <ng-container *ngIf="question.is_author; else cannotDelete">
                     <a class="action-icon btn btn-danger faTrashAlt" [routerLink]=""
                        (click)="open(deleteModal, question.id)">
@@ -122,6 +125,13 @@
     (page)="newPageEvent($event)"
 >
 </mat-paginator>
+<div class="d-flex flex-row">
+    <a class="btn btn-primary mr-5" (click)="downloadAllQuestions()">Download All Questions</a>
+    <div class="">
+        <input type="file" (change)="onFileChanged($event.target)">
+        <button class="btn btn-primary" (click)="uploadQuestions()">Upload!</button>
+    </div>
+</div>
 <ng-template #deleteModal let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Delete Question</h4>

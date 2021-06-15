@@ -45,7 +45,7 @@ export const MOCK_QUESTION: Question = {
     event: MOCK_COURSE_EVENT,
     event_name: '',
     full_category_name: '',
-    input_file_names: [],
+    input_file_names: JSON,
     is_exam: false,
     is_exam_and_open: false,
     is_open: true,

@@ -56,6 +56,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {ToastrModule} from "ngx-toastr";
 import {NotFoundComponent} from './components/general/not-found/not-found.component';
 import {ForbiddenComponent} from './components/general/forbidden/forbidden.component';
+import {CamelCaseInterceptor} from "@app/_helpers/camelCase.interceptor";
 
 @NgModule({
     declarations: [
@@ -119,6 +120,7 @@ import {ForbiddenComponent} from './components/general/forbidden/forbidden.compo
         ToastrModule.forRoot(),
     ],
     providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: CamelCaseInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     ],

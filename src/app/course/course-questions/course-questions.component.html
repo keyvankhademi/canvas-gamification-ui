@@ -1,0 +1,71 @@
+<div class="container">
+<ng-container *ngIf="uqjs" class="question-container">
+    <div [class.container]="eventId" >
+        <h2 *ngIf="eventId" class="mb-3 mt-5">{{ event.name }} Questions</h2>
+        <table class="table table-hover mt-3" data-toggle="table">
+            <thead class="thead-light text-dark">
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Sub&nbsp;Category</th>
+                <th scope="col">Format</th>
+                <th scope="col">Tokens Earned</th>
+                <th scope="col">Status</th>
+                <ng-container *ngIf="eventId">
+                    <th scope="col">Num&nbsp;Attempts</th>
+                </ng-container>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngIf="uqjs.length; else tableEmpty">
+                <ng-container *ngFor="let uqj of uqjs; index as i">
+                    <tr [attr.class]=highlight(getStatus(uqj))>
+                        <td>{{ uqj.question.parent_category_name || 'No Category' }}</td>
+                        <td>{{ uqj.question.category_name || 'No Sub-Category'}}</td>
+                        <td>{{ uqj.question.type_name || 'No Type'}}</td>
+                        <td>{{ uqj.formatted_current_tokens_received || 'No Tokens' }}</td>
+                        <td>{{ getStatus(uqj) || 'No Status'}}</td>
+                        <ng-container *ngIf="eventId">
+                            <td>
+                                {{uqj.num_attempts}} / {{ uqj.question.max_submission_allowed}}
+                            </td>
+                        </ng-container>
+                        <td>
+                            <ng-container *ngIf="eventId; else noEvent">
+                                <a class="btn btn-primary mr-3"
+                                   [routerLink]="['/course', courseId, 'event', this.eventId, 'problem', uqj.question.id]">Open</a>
+                            </ng-container>
+                            <ng-template #noEvent>
+                                <a class="btn btn-primary mr-3"
+                                   [routerLink]="['/course', courseId, 'problem', uqj.question.id]">Open</a>
+                            </ng-template>
+                            <ng-container *ngIf="user.is_teacher">
+                                <!--TODO: Edit and view have radically different routes? Is this ok?-->
+                                <a class="btn btn-warning mr-3"
+                                   [routerLink]="['/problem', uqj.question.id,'edit']">Edit</a>
+                            </ng-container>
+
+                        </td>
+                    </tr>
+                </ng-container>
+            </ng-container>
+            <ng-template #tableEmpty>
+                <tr>
+                    <td [attr.colspan]="eventId ? 7 : 6" class="bg-info">
+                        <p *ngIf="eventId; else inCourse" class="text-center text-light m-0">
+                            There aren't currently any questions in this event.
+                        </p>
+                        <ng-template #inCourse>
+                            <p class="text-center text-light m-0">
+                                There aren't currently any questions in this course.
+                            </p>
+                        </ng-template>
+                    </td>
+                </tr>
+            </ng-template>
+            </tbody>
+        </table>
+    </div>
+</ng-container>
+</div>
+

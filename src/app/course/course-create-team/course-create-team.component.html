@@ -1,0 +1,17 @@
+<div id="mainContainer" class="container">
+    <h2 class="my-3">
+        Create Team
+    </h2>
+    <!--TODO: Add aria-labels throughout form (on Opey)-->
+    <form id="new-team" class="form" [formGroup]="formData" (ngSubmit)="submitEvent(formData)">
+        <div class="form-group">
+            <label for="id-team-name">Team Name</label>
+            <input id="id-team-name" type="text" name="team-name" formControlName="team-name" class="form-control"
+                   placeholder="Team Name..." [ngClass]="{ 'is-invalid': form.name.errors && form.name.touched }">
+            <div *ngIf="form.name.errors" class="invalid-feedback">
+                <div *ngIf="form.name.errors.required">Team Name is required</div>
+            </div>
+        </div>
+    </form>
+</div>
+

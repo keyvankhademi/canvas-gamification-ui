@@ -15,7 +15,7 @@ export class ConceptMapGraph {
         this.paper = new joint.dia.Paper({
             el: jQuery('#paper'),
             width: 2000,
-            height: 2000,
+            height: 1000,
             model: this.graph,
             gridSize: 20,
             interactive: false,

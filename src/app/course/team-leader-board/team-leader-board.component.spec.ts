@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LeaderBoardComponent } from './leader-board.component';
+import { TeamLeaderBoardComponent } from './team-leader-board.component';
 
 describe('LeaderboardComponent', () => {
-    let component: LeaderBoardComponent;
-    let fixture: ComponentFixture<LeaderBoardComponent>;
+    let component: TeamLeaderBoardComponent;
+    let fixture: ComponentFixture<TeamLeaderBoardComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [ LeaderBoardComponent ]
+            declarations: [ TeamLeaderBoardComponent ]
         })
             .compileComponents();
     });
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(LeaderBoardComponent);
+        fixture = TestBed.createComponent(TeamLeaderBoardComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

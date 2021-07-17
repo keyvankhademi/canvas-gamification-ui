@@ -1,91 +1,92 @@
-<table class="table table-bordered table-light mt-5 hover-shadow">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">URL</th>
-        <th scope="col">Canvas&nbsp;Course&nbsp;Name</th>
-        <th scope="col">Start&nbsp;Date</th>
-        <th scope="col">End&nbsp;Date</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>{{ course?.id || 'No ID' }}</td>
-        <td>{{ course?.name || 'No Name' }}</td>
-        <td>{{ course?.url || 'No URL' }}</td>
-        <td>{{ course?.name || 'No Name'}}</td>
-        <td>{{ course?.start_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
-        <td>{{ course?.end_date | date: 'LLL. dd, YYYY, hh:MM a' || 'No Date'}}</td>
-    </tr>
-    </tbody>
-</table>
 
-<ul class="nav nav-tabs mt-5" role="tablist">
-    <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="concept-map-tab" data-toggle="tab" href="#concept-map" role="tab"
-           aria-controls="concept-map"
-           aria-selected="false">Concepts</a>
-    </li>
-    <ng-container *ngIf="user?.is_teacher">
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" id="problem-set-tab" data-toggle="tab" href="#problem-set" role="tab"
-               aria-controls="problem-set" aria-selected="true">Questions</a>
-        </li>
-    </ng-container>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="events-tab" data-toggle="tab" href="#events" role="tab"
-           aria-controls="events" aria-selected="true">Events</a>
-    </li>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="tokens-tab" data-toggle="tab" href="#tokens" role="tab" aria-controls="tokens"
-           aria-selected="false">Token Use</a>
-    </li>
-    <li class="nav-item" role="presentation">
-        <a class="nav-link" id="leader-board-tab" data-toggle="tab" href="#leader-board" role="tab"
-           aria-controls="leader-board"
-           aria-selected="false">Leader&nbsp;Board</a>
-    </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="concept-map" role="tabpanel" aria-labelledby="concept-map-tab">
-        <div class="hover-shadow p-3">
-            <ng-container *ngIf="course">
-                <app-concept-map [currCourse]="course"></app-concept-map>
-            </ng-container>
+
+<div class="row">
+    <div class="left">
+        <div class="left-module">
+            <app-course-dashboard [events]="course?.events" [courseId]="courseId"></app-course-dashboard>
         </div>
-    </div>
-    <ng-container *ngIf="user?.is_teacher">
-        <div class="tab-pane fade" id="problem-set" role="tabpanel" aria-labelledby="problem-set-tab">
-            <div class="hover-shadow p-3">
-                <ng-container *ngIf="course">
-                    <app-course-question-snippet [questions]="course?.question_set" [uqjs]="course?.uqjs">
-                    </app-course-question-snippet>
-                </ng-container>
+        <div class="left-module">
+            <h3>Leaderboard</h3>
+            <ul class="nav nav-tabs mt-5" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="student-leaderboard-tab" data-toggle="tab"
+                        href="#student-leaderboard" role="tab" aria-controls="student-leaderboard-tab"
+                        aria-selected="true">Individual</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="team-leaderboard-tab" data-toggle="tab" href="#team-leaderboard" role="tab"
+                        aria-controls="team-leaderboard" aria-selected="false">Team</a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="student-leaderboard" role="tabpanel"
+                    aria-labelledby="student-leaderboard-tab">
+                    
+                        <ng-container *ngIf="course">
+                            <app-leader-board [leaderBoard]="course?.leader_board"></app-leader-board>
+                        </ng-container>
+                    
+                </div>
+                <div class="tab-pane fade" id="team-leaderboard" role="tabpanel" aria-labelledby="team-leaderboard-tab">
+                    <div class="hover-shadow p-3">
+                        <ng-container *ngIf="course">
+                            <app-team-leader-board></app-team-leader-board>
+                        </ng-container>
+                    </div>
+                </div>
             </div>
         </div>
-    </ng-container>
-    <div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab">
-        <div class="hover-shadow p-3">
-            <ng-container *ngIf="course">
-                <app-course-events-snippet [events]="course?.events" [courseId]="courseId">
-                </app-course-events-snippet>
-            </ng-container>
-        </div>
     </div>
-    <div class="tab-pane fade" id="tokens" role="tabpanel" aria-labelledby="tokens-tab">
-        <div class="hover-shadow p-3">
-            <ng-container *ngIf="course">
-                <app-token-use-snippet [courseReg]="course?.course_reg"></app-token-use-snippet>
-            </ng-container>
+    <div class="right">
+        <div class="right-module">
+            <h3>Tokens</h3>
+            <app-course-tokens [courseReg]="course?.course_reg" class="token-module"></app-course-tokens>
         </div>
-    </div>
-    <div class="tab-pane fade" id="leader-board" role="tabpanel" aria-labelledby="leader-board-tab">
-        <div class="hover-shadow p-3">
-            <ng-container *ngIf="course">
-                <app-leader-board [leaderBoard]="course?.leader_board"></app-leader-board>
-            </ng-container>
+
+        <div class="right-module">
+            <h3>Questions</h3>
+            <app-course-questions [questions]="course?.question_set" [uqjs]="course?.uqjs" class="question-module">
+            </app-course-questions>
         </div>
+        <div class="right-module">
+            <div class="tab-content" id="myTabContent">
+                <ul class="nav nav-tabs mt-5" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="teams-tab" data-toggle="tab" href="#teams" role="tab"
+                            aria-controls="teams-tab" aria-selected="true">Join Team</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="create-team-tab" data-toggle="tab" href="#create-team" role="tab"
+                            aria-controls="teams-tab" aria-selected="false">Create Team</a>
+                    </li>
+                </ul>
+
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="teams" role="tabpanel" aria-labelledby="teams-tab">
+                        <div class="hover-shadow p-3">
+                            <ng-container>
+                                <app-course-team></app-course-team>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="create-team" role="tabpanel" aria-labelledby="create-team-tab">
+                        <div class="hover-shadow p-3">
+                            <ng-container *ngIf="course">
+                                <app-course-create-team></app-course-create-team>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
+</div>
+<div class="row concept-map-container">
+    <div class="col">
+        <app-concept-map [currCourse]="course"></app-concept-map> 
+    </div> 
 </div>
 

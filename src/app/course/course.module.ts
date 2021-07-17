@@ -8,6 +8,13 @@ import {CourseEventsSnippetComponent} from "@app/course/course-events-snippet/co
 import {TokenUseSnippetComponent} from "@app/course/token-use-snippet/token-use-snippet.component";
 import {CourseQuestionSnippetComponent} from "@app/course/course-question-snippet/course-question-snippet.component";
 import {LeaderBoardComponent} from "@app/course/leader-board/leader-board.component";
+import { TeamLeaderBoardComponent } from './team-leader-board/team-leader-board.component';
+
+//new folders for coursePageLayout here
+import {CourseDashboardComponent} from "@app/course/course-dashboard/course-dashboard.component";
+import {CourseTokensComponent} from "@app/course/course-tokens/course-tokens.component";
+import { CourseQuestionsComponent } from './course-questions/course-questions.component';
+
 import {CourseRoutingModule} from "@app/course/course-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
@@ -21,6 +28,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
+
 import {
     NgxMatDatetimePickerModule,
     NgxMatNativeDateModule,
@@ -31,6 +39,10 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {CourseService} from "@app/course/_services/course.service";
 import {CourseEventService} from "@app/course/_services/course-event.service";
 import {TokenUseService} from "@app/course/_services/token-use.service";
+import { CourseTeamComponent } from './course-team/course-team.component';
+import { CourseCreateTeamComponent } from './course-create-team/course-create-team.component';
+
+
 import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component";
 
 @NgModule({
@@ -43,6 +55,13 @@ import {ConceptMapComponent} from "@app/course/concept-map/concept-map.component
         CourseQuestionSnippetComponent,
         CourseEventCreateEditComponent,
         LeaderBoardComponent,
+        TeamLeaderBoardComponent,
+        //new folders for coursePageLayout here
+        CourseDashboardComponent,
+        CourseTokensComponent,
+        CourseQuestionsComponent,
+        CourseTeamComponent,
+        CourseCreateTeamComponent,
         ConceptMapComponent
     ],
     imports: [

@@ -1,0 +1,19 @@
+<div class="container">
+
+    <ng-container *ngIf="user?.is_teacher">
+        <h3 class="card-text red-text">Warning: You are logged in as a teacher! Token uses will not do anything for
+            you!</h3>
+    </ng-container>
+
+    <div class="card border-secondary" style="width: 18rem;">
+        <div class="card-body">
+            <p class="card-text">Available Tokens: <span
+                id="available_tokens">{{ courseReg.total_tokens_received | number: '1.0-1' }}</span>
+            </p>
+            <p class="card-text" id="remaining_tokens_text" [class.text-danger]="invalid"
+               [class.font-weight-bold]="invalid">
+                Remaining Tokens:<span id="remaining_tokens">{{ remainingTokens | number: '1.0-1' }}</span></p>
+        </div>
+    </div>
+
+</div>

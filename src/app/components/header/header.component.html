@@ -48,6 +48,9 @@
             <li class="nav-item">
                 <a [class.active]="isActive('faq')" class="nav-link" routerLink="faq">FAQ</a>
             </li>
+            <li class="nav-item">
+                <a [class.active]="isActive('LeaderBoard')" class="nav-link" routerLink="leaderboard">Leaderboard</a>
+            </li>
         </ul>
         <ul class="navbar-nav mr-md-0">
             <ng-container *ngIf="!!user; else notLoggedIn">

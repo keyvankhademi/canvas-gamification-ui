@@ -1,0 +1,58 @@
+<h3>Events</h3>
+<div class="row" *ngIf="events;">
+    <ng-container *ngFor="let event of events; index as i">
+        <div class="d-flex col-md-4 mb-4">
+            <div class="card flex-fill">
+                <span class="sr-only">Card for event {{ event.name }}</span>
+                <div class="card-block-top"></div>
+                <div class="card-body">
+                    <h5 class="card-title">{{event.name}}</h5>
+                    <!-- <a [routerLink]="['/course/view', course.id]" class="btn btn-primary">Open</a> -->
+                    <div class="btn-container">
+                    <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher">
+                        <a class="btn btn-primary mr-3"
+                           [routerLink]="['/course', courseId, 'event', event.id]">{{ getEventButtonText(event) }}</a>
+                    </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="events.length <= 3">
+        <div class="d-flex col-md-4 mb-4">
+            <div class="card card-register-new flex-fill">
+                <span class="sr-only">Card for New Event</span>
+                <div class="card-block-top"></div>
+                <div class="card-body">
+                    <h5 class="card-title">Looking for more events?</h5>
+                    <ng-container *ngIf="user?.is_teacher">
+                        <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId, 'new-event']">Add an Event</a>
+                        <!--TODO: Consider if this button should still even be here-->
+                        <!-- <a class="btn btn-primary my-2" href="#">Import an Event</a> -->
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- <ng-container *ngIf="user?.is_teacher">
+        <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId, 'new-event']">Add an Event</a>
+        TODO: Consider if this button should still even be here
+        <a class="btn btn-primary my-2" href="#">Import an Event</a>
+    </ng-container> -->
+
+    
+    <!--
+</div> 
+ <ng-template #noActiveEvents>
+    <div class="jumbotron">
+        <p class="text-md-center">Looks like you don't have any active courses. Not to worry, you can register here:</p>
+        <div class="row">
+            <div class="col text-center">
+                <a class="btn btn-primary" routerLink="courses">Register into Courses</a>
+            </div>
+        </div>
+    </div>
+</ng-template> -->
+

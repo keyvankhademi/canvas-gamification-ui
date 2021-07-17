@@ -3,8 +3,56 @@
 
 @include mixins.hover-shadow();
 
+$big-drop-shadow: 5px 5px 26px -6px rgba(0, 0, 0, 0.75);
+
 .tab-content {
     div {
         background-color: #fff;
     }
+}
+
+.row:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.left{
+    width: 60%;
+    float:left;
+}
+
+.right{
+    float:left;
+    width: 40%;
+}
+
+.left-module{
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid rgba(27, 27, 27, 0.125);
+    border-radius: 0.25rem;
+    box-shadow:$big-drop-shadow;
+}
+
+.right-module{
+    display: inline-block;
+    border: 1px solid rgba(27, 27, 27, 0.125);
+    border-radius: 0.25rem;
+    padding: 20px;
+    margin-top: 20px;
+    margin-right: 1rem;
+    width: 100%;
+    box-shadow: $big-drop-shadow;
+    overflow-y: auto;
+}
+
+.concept-map-container {
+    max-width: 100%;
+    max-height: 600px;
+    border-radius: 0.25rem;
+    box-shadow:$big-drop-shadow;
+    margin: 0 auto;
+    z-index: -10;
+    overflow: scroll;
 }

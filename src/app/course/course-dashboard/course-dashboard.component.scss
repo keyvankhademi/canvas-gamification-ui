@@ -1,0 +1,32 @@
+.card-block-top {
+    height: 10rem;
+    background-color: #ffa3a3;
+    border-width: 0;
+
+    &:hover {
+        box-shadow: black;
+    }
+}
+
+.card-title {
+    font-size: 1.2rem;
+}
+
+.card-register-new {
+    background-color: transparent;
+    border-width: 0.1rem;
+    border-style: dashed;
+    border-color: #6c757d;
+    color: #6c757d;
+
+    .card-block-top {
+        background-color: inherit;
+        border-color: inherit;
+        border-style: dashed;
+        border-bottom-width: 0.1rem;
+    }
+
+    .card-body {
+        background-color: #fafafa;
+    }
+}

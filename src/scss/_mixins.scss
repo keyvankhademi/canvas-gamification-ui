@@ -49,4 +49,12 @@
             background-color: rgba($danger, 0.6);
         }
     }
+
+    .highlight-defualt {
+        background-color: rgba($white, 0.3);
+
+        &:hover {
+            background-color: rgba($white, 0.6);
+        }
+    }
 }

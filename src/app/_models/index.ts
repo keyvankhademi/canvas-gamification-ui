@@ -15,3 +15,4 @@ export * from './global/api_response';
 export * from './course-registration/registration_status';
 export * from './course-registration/course_registration_response';
 export * from './eventType';
+export * from './leader_board';

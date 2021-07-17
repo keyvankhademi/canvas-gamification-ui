@@ -1,29 +1,30 @@
+<h3>Team Leaderboard</h3>
 <div class="container podium-container">
-    <div class="podium-wrapper" *ngFor="let user of topThree let i = index"
+    <div class="podium-wrapper" *ngFor="let team of teamTopThree let i = index"
         [ngClass]="{'first' : i == 0, 'second' : i == 1, 'third' : i == 2}">
         <div class="podium-content">
             <h2 class="podium-title">
-                {{user.name | titlecase}}
+                {{team.name | titlecase}}
             </h2>
             <p class="podium-body">Place: {{ i + 1}}</p>
-            <p class="podium-body">Tokens: {{user.token || 'No Tokens'}}</p>
+            <p class="podium-body">Tokens: {{team.tokens || 'No Tokens'}}</p>
         </div>
     </div>
 </div>
 
-<table mat-table [dataSource]="leaderBoardData" matSort matSortActive="token" matSortDirection="desc"
+<table mat-table [dataSource]="teamLeaderBoardData" matSort matSortActive="token" matSortDirection="desc"
     matSortDisableClear class="table table-hover hover-shadow">
     <ng-container matColumnDef="rank">
-        <th mat-header-cell *matHeaderCellDef>Rank</th>
+        <th mat-header-cell *matHeaderCellDef >Rank</th>
         <td mat-cell *matCellDef="let i = index">{{i + 4}}</td>
     </ng-container>
     <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let element"> {{(element.name | titlecase)  || 'Anon'}}</td>
+        <th mat-header-cell *matHeaderCellDef  >Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.name || 'Anon'}}</td>
     </ng-container>
     <ng-container matColumnDef="token">
         <th mat-header-cell *matHeaderCellDef>Tokens</th>
-        <td mat-cell *matCellDef="let element"> {{element.token || 'No Tokens'}}</td>
+        <td mat-cell *matCellDef="let element"> {{element.tokens || 'No Tokens'}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

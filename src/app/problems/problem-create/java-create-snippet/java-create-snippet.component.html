@@ -1,7 +1,7 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <label for="javaQuestionName">Question Name:</label>
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup" class="p-3">
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
+            <label for="javaQuestionName" class="h5 pb-2">Question Name:</label>
             <input [ngClass]="{'is-invalid': form.title.errors && form.title.touched}" class="form-control"
                    formControlName="title" id="javaQuestionName" type="text">
             <div *ngIf="form.title.touched && form.title.invalid"
@@ -10,9 +10,9 @@
             </div>
         </div>
     </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <label for="javaDifficulty">Difficulty</label>
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
+            <label for="javaDifficulty" class="h5 pb-2">Difficulty:</label>
             <select [ngClass]="{'is-invalid': form.difficulty.errors && form.difficulty.touched}" class="form-control"
                     formControlName="difficulty" id="javaDifficulty">
                 <option value="EASY">EASY</option>
@@ -25,12 +25,13 @@
             </div>
         </div>
     </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <label for="javaCategory">Category:</label>
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
+            <label for="javaCategory" class="h5 pb-2">Category:</label>
             <select [ngClass]="{'is-invalid': form.category.errors && form.category.touched}" class="form-control"
                     formControlName="category" id="javaCategory">
-                <option *ngFor="let category of categories" value="{{category.pk}}">{{category.full_name}}</option>
+                <option *ngFor="let category of categories"
+                        value="{{category.pk}}">{{category.full_name}}</option>
             </select>
             <div *ngIf="form.category.touched && form.category.invalid"
                  class="invalid-feedback">
@@ -38,23 +39,23 @@
             </div>
         </div>
     </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
             <div class="form-check">
-                <input (change)="practiceCheckboxChanged($event)" class="form-check-input" id="practiceCheckbox"
-                       type="checkbox">
-                <label class="form-check-label" for="practiceCheckbox">Practice Question</label>
+                <input (change)="practiceCheckboxChanged($event)" [checked]="isPractice" class="form-check-input"
+                       id="practiceCheckbox" type="checkbox">
+                <label class="form-check-label h5 pb-2" for="practiceCheckbox">Practice Question</label>
             </div>
         </div>
     </div>
     <ng-container *ngIf="!isPractice">
-        <div class="form-row m-3">
-            <div class="col-md-6">
-                <label for="javaCourse">Course:</label>
+        <div class="form-row m-3 p-3">
+            <div class="col-md-12">
+                <label for="javaCourse" class="h5 pb-2">Course:</label>
                 <select (change)="courseSelectedEvent($event)"
                         [ngClass]="{'is-invalid': form.course.value === null && form.course.touched}"
-                        class="form-control"
-                        formControlName="course" id="javaCourse">
+                        class="form-control" formControlName="course"
+                        id="javaCourse">
                     <option *ngFor="let course of courses" value="{{course.id}}">{{course.name}}</option>
                 </select>
                 <div *ngIf="form.course.touched && form.course.value === null"
@@ -63,9 +64,9 @@
                 </div>
             </div>
         </div>
-        <div class="form-row m-3">
-            <div class="col-md-6">
-                <label for="javaEvent">Event Name:</label>
+        <div class="form-row m-3 p-3">
+            <div class="col-md-12">
+                <label for="javaEvent" class="h5 pb-2">Event Name:</label>
                 <select [ngClass]="{'is-invalid': form.event.value === null && form.event.touched}" class="form-control"
                         formControlName="event" id="javaEvent">
                     <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
@@ -77,46 +78,47 @@
             </div>
         </div>
     </ng-container>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <label for="javaQuestion">Question:</label>
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
+            <label for="javaQuestion" class="h5 pb-2">Question:</label>
             <app-ck-editor [(value)]="questionText" id="javaQuestion"></app-ck-editor>
         </div>
     </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <label for="junit_template">JUnit Template:</label>
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
+            <label for="junit_template" class="h5 pb-2">JUnit Template:</label>
+            <div class="text-muted">
+                Please provide a JUnit template to evaluate the code.
+                Identify where to insert the solution by "code"
+            </div>
             <textarea [ngClass]="{'is-invalid': form.junit_template.errors && form.junit_template.touched}"
-                      class="form-control"
-                      formControlName="junit_template" id="junit_template"></textarea>
+                      class="form-control" formControlName="junit_template" id="junit_template"></textarea>
             <div *ngIf="form.junit_template.touched && form.junit_template.invalid"
                  class="invalid-feedback">
                 <div *ngIf="form.junit_template.errors.required">JUnit Template is Required.</div>
             </div>
         </div>
-        <div class="col-md-6">
-            Please provide a JUnit template to evaluate the code.
-            Identify where to insert the solution by "code"
-        </div>
     </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <app-json-editor [(value)]="inputFiles" [name]="'java_input_files'"></app-json-editor>
-        </div>
-        <div class="col-md-6">
+    <div class="form-row m-3 p-3">
+        <div class="h5 ml-3 pb-2">Submitted Files:</div>
+        <div class="col-md-12 ml-3 text-muted">
             Please provide the name of the
             files students need to submit.
             Specify whether each file should be compiled with the junit.
         </div>
+        <div class="col-md-12">
+            <app-json-editor [(value)]="inputFiles" [name]="'java_input_files'"></app-json-editor>
+        </div>
     </div>
     <div class="form-row m-3">
-        <div class="col-md-6">
-            <app-json-editor [(value)]="variables" [name]="'variables'"></app-json-editor>
-        </div>
-        <div class="col-md-6">
+        <div class="h5 ml-3 pb-2">Variables:</div>
+        <div class="col-md-12 ml-3 text-muted">
             If you are not using variables,
             please don't add any variables
             and delete the existing ones.
+        </div>
+        <div class="col-md-12">
+            <app-json-editor [(value)]="variables" [name]="'variables'"></app-json-editor>
         </div>
     </div>
     <div class="form-row m-3">

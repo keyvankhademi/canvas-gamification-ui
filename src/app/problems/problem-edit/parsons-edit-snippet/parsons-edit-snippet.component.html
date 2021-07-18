@@ -1,7 +1,7 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <label for="parsonsQuestionName">Question Name:</label>
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup" class="p-3">
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
+            <label for="parsonsQuestionName" class="h5 pb-2">Question Name:</label>
             <input [ngClass]="{'is-invalid': form.title.errors && form.title.touched}" class="form-control"
                    formControlName="title" id="parsonsQuestionName" type="text">
             <div *ngIf="form.title.touched && form.title.invalid"
@@ -10,9 +10,9 @@
             </div>
         </div>
     </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <label for="parsonsDifficulty">Difficulty</label>
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
+            <label for="parsonsDifficulty" class="h5 pb-2">Difficulty:</label>
             <select [ngClass]="{'is-invalid': form.difficulty.errors && form.difficulty.touched}" class="form-control"
                     formControlName="difficulty" id="parsonsDifficulty">
                 <option value="EASY">EASY</option>
@@ -25,9 +25,9 @@
             </div>
         </div>
     </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <label for="parsonsCategory">Category:</label>
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
+            <label for="parsonsCategory" class="h5 pb-2">Category:</label>
             <select [ngClass]="{'is-invalid': form.category.errors && form.category.touched}" class="form-control"
                     formControlName="category" id="parsonsCategory">
                 <option *ngFor="let category of categories"
@@ -39,19 +39,19 @@
             </div>
         </div>
     </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
             <div class="form-check">
                 <input (change)="practiceCheckboxChanged($event)" [checked]="isPractice" class="form-check-input"
                        id="practiceCheckbox" type="checkbox">
-                <label class="form-check-label" for="practiceCheckbox">Practice Question</label>
+                <label class="form-check-label h5 pb-2" for="practiceCheckbox">Practice Question</label>
             </div>
         </div>
     </div>
     <ng-container *ngIf="!isPractice">
-        <div class="form-row m-3">
-            <div class="col-md-6">
-                <label for="parsonsCourse">Course:</label>
+        <div class="form-row m-3 p-3">
+            <div class="col-md-12">
+                <label for="parsonsCourse" class="h5 pb-2">Course:</label>
                 <select (change)="courseSelectedEvent($event)"
                         [ngClass]="{'is-invalid': form.course.value === null && form.course.touched}"
                         class="form-control" formControlName="course"
@@ -64,9 +64,9 @@
                 </div>
             </div>
         </div>
-        <div class="form-row m-3">
-            <div class="col-md-6">
-                <label for="parsonsEvent">Event Name:</label>
+        <div class="form-row m-3 p-3">
+            <div class="col-md-12">
+                <label for="parsonsEvent" class="h5 pb-2">Event Name:</label>
                 <select [ngClass]="{'is-invalid': form.event.value === null && form.event.touched}" class="form-control"
                         formControlName="event" id="parsonsEvent">
                     <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
@@ -78,15 +78,19 @@
             </div>
         </div>
     </ng-container>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <label for="parsonsQuestion">Question:</label>
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
+            <label for="parsonsQuestion" class="h5 pb-2">Question:</label>
             <app-ck-editor [(value)]="questionText" id="parsonsQuestion"></app-ck-editor>
         </div>
     </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <label for="parsons_junit_template">JUnit Template:</label>
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
+            <label for="parsons_junit_template" class="h5 pb-2">JUnit Template:</label>
+            <div class="text-muted">
+                Please provide a JUnit template to evaluate the code.
+                Identify where to insert the solution using the word "code"
+            </div>
             <textarea [ngClass]="{'is-invalid': form.junit_template.errors && form.junit_template.touched}"
                       class="form-control" formControlName="junit_template"
                       id="parsons_junit_template"></textarea>
@@ -95,47 +99,45 @@
                 <div *ngIf="form.junit_template.errors.required">JUnit Template is Required.</div>
             </div>
         </div>
-        <div class="col-md-6">
-            Please provide a JUnit template to evaluate the code.
-            Identify where to insert the solution by "code"
-        </div>
     </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <app-json-editor [(value)]="this.inputFiles" [name]="'parsons_input_files'"></app-json-editor>
-        </div>
-        <div class="col-md-6">
+    <div class="form-row m-3 p-3">
+        <div class="h5 ml-3 pb-2">Submitted Files:</div>
+        <div class="col-md-12 ml-3 text-muted">
             <p>
-                Specify whether each file should be compiled or not. If it is compile then
+                Specify whether each file should be compiled or not. If it is compiled then
                 the file name is used to put the user code in it when compiling.
                 By providing a name here a file with that name will be created in the same directory
-                of your Junit code and will be compiled with you Junit code.
-                This name usually should be the exact name of the Java class with .java extension.
+                of your Junit code and will be compiled with your Junit code.
+                This name is usually the exact name of your Java class with .java extension.
                 For example if the solution has a public class Calculator, the file name should be
                 Calculator.java.
             </p>
             <p>
-                Regardless of if the file is compiled or not, you can paste the file in your Junit
+                Regardless of whether the file is compiled or not, you can paste the file in your Junit test
                 by using {{"{{"}}file_name{{"}"}}{{"}"}}.
             </p>
             <p>
-                Paste the solution in the lines. Possibly add extra lines at the end.
+                Paste the solution in the lines field. Possibly add extra lines at the end.
                 Lines will be extracted and shuffled.
             </p>
         </div>
-    </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
-            <app-json-editor [(value)]="variables" [name]="'variables'"></app-json-editor>
+        <div class="col-md-12">
+            <app-json-editor [(value)]="this.inputFiles" [name]="'parsons_input_files'"></app-json-editor>
         </div>
-        <div class="col-md-6">
+    </div>
+    <div class="form-row m-3 p-3">
+        <div class="h5 ml-3 pb-2">Variables:</div>
+        <div class="col-md-12 ml-3 text-muted">
             If you are not using variables,
             please don't add any variables
             and delete the existing ones.
         </div>
+        <div class="col-md-12">
+            <app-json-editor [(value)]="variables" [name]="'variables'"></app-json-editor>
+        </div>
     </div>
-    <div class="form-row m-3">
-        <div class="col-md-6">
+    <div class="form-row m-3 p-3">
+        <div class="col-md-12">
             <button [disabled]="formGroup.invalid || !isSubmissionValid()" class="btn btn-success" id="submit">Submit
             </button>
         </div>

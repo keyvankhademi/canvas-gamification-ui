@@ -1,7 +1,7 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+<form (ngSubmit)="onSubmit()" [formGroup]="formGroup" class="p-3">
     <div class="form-row m-3 p-3">
-        <div class="col-md-6">
-            <label for="mcqQuestionName">Question Name:</label>
+        <div class="col-md-12">
+            <label for="mcqQuestionName" class="h5 pb-2">Question Name:</label>
             <input [ngClass]="{'is-invalid': form.title.errors && form.title.touched}" class="form-control"
                    formControlName="title" id="mcqQuestionName" type="text">
             <div *ngIf="form.title.touched && form.title.invalid"
@@ -11,9 +11,10 @@
         </div>
     </div>
     <div class="form-row m-3 p-3">
-        <div class="col-md-6">
-            <label for="mcqDifficulty">Difficulty</label>
-            <select [ngClass]="{'is-invalid': form.difficulty.errors && form.difficulty.touched}" class="form-control"
+        <div class="col-md-12">
+            <label for="mcqDifficulty" class="h5 pb-2">Difficulty:</label>
+            <select [ngClass]="{'is-invalid': form.difficulty.errors && form.difficulty.touched}"
+                    class="form-control"
                     formControlName="difficulty" id="mcqDifficulty">
                 <option value="EASY">EASY</option>
                 <option value="NORMAL">MEDIUM</option>
@@ -26,8 +27,8 @@
         </div>
     </div>
     <div class="form-row m-3 p-3">
-        <div class="col-md-6">
-            <label for="mcqCategory">Category:</label>
+        <div class="col-md-12">
+            <label for="mcqCategory" class="h5 pb-2">Category:</label>
             <select [ngClass]="{'is-invalid': form.category.errors && form.category.touched}" class="form-control"
                     formControlName="category" id="mcqCategory">
                 <option *ngFor="let category of categories" value="{{category.pk}}">{{category.full_name}}</option>
@@ -39,18 +40,18 @@
         </div>
     </div>
     <div class="form-row m-3 p-3">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="form-check">
                 <input (change)="practiceCheckboxChanged($event)" [checked]="isPractice" class="form-check-input"
                        id="practiceCheckbox" type="checkbox">
-                <label class="form-check-label" for="practiceCheckbox">Practice Question</label>
+                <label class="form-check-label h5 pb-2" for="practiceCheckbox">Practice Question</label>
             </div>
         </div>
     </div>
     <ng-container *ngIf="!isPractice">
         <div class="form-row m-3 p-3">
-            <div class="col-md-6">
-                <label for="mcqCourse">Course:</label>
+            <div class="col-md-12">
+                <label for="mcqCourse" class="h5 pb-2">Course:</label>
                 <select (change)="courseSelectedEvent($event)"
                         [ngClass]="{'is-invalid': form.course.value === null && form.course.touched}"
                         class="form-control" formControlName="course"
@@ -64,9 +65,10 @@
             </div>
         </div>
         <div class="form-row m-3 p-3">
-            <div class="col-md-6">
-                <label for="mcqEvent">Event Name:</label>
-                <select [ngClass]="{'is-invalid': form.event.value === null && form.event.touched}" class="form-control"
+            <div class="col-md-12">
+                <label for="mcqEvent" class="h5 pb-2">Event Name:</label>
+                <select [ngClass]="{'is-invalid': form.event.value === null && form.event.touched}"
+                        class="form-control"
                         formControlName="event" id="mcqEvent">
                     <option *ngFor="let event of events" value="{{event.id}}">{{event.name}}</option>
                 </select>
@@ -78,23 +80,23 @@
         </div>
     </ng-container>
     <div class="form-row m-3 p-3">
-        <div class="col-md-6">
-            <label for="mcqQuestion">Question:</label>
+        <div class="col-md-12">
+            <label for="mcqQuestion" class="h5 pb-2">Question:</label>
             <app-ck-editor [(value)]="questionText" id="mcqQuestion"></app-ck-editor>
         </div>
     </div>
     <ng-container *ngIf="!questionDetails.is_checkbox">
         <div class="form-row m-3 p-3">
-            <div class="col-md-6">
-                <label for="mcqCorrectAnswer">Correct Answer:</label>
+            <div class="col-md-12">
+                <label for="mcqCorrectAnswer" class="h5 pb-2">Correct Answer:</label>
                 <app-ck-editor [(value)]="answerText" id="mcqCorrectAnswer"></app-ck-editor>
             </div>
         </div>
     </ng-container>
     <ng-container *ngIf="questionDetails.is_checkbox">
         <div class="form-row m-3">
-            <div class="col-md-6">
-                <label for="mcqCorrectAnswers">Correct Answers:</label>
+            <div class="col-md-12">
+                <label for="mcqCorrectAnswers" class="h5 pb-2">Correct Answers:</label>
                 <table id="mcqCorrectAnswers">
                     <tbody>
                     <tr *ngFor="let _ of correctAnswers; index as i">
@@ -118,34 +120,36 @@
         </div>
     </ng-container>
     <div class="form-row m-3 p-3">
-        <div class="col-md-6>">
-            <h3>Distract Answers:</h3>
-            <label class="radio-inline mx-1">
-                <input
-                    [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}"
-                    formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
-                    value="999">All
-            </label>
-            <label class="radio-inline mx-1">
-                <input
-                    [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}"
-                    formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
-                    value="2">2
-            </label>
-            <label class="radio-inline mx-1">
-                <input
-                    [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}"
-                    formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
-                    value="3">3
-            </label>
+        <div class="col-md-12>">
+            <div class="h5 pb-2">Number of Distractor Answers:</div>
+            <input
+                id="radioAll"
+                [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}"
+                formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
+                value="999">
+            <label for="radioAll" class="radio-inline mx-1 pr-2">All</label>
+            <input
+                id="radio2"
+                [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}"
+                formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
+                value="2">
+            <label for="radio2" class="radio-inline mx-1 pr-2">2</label>
+            <input
+                id="radio3"
+                [ngClass]="{'is-invalid': form.visible_distractor_count.errors && form.visible_distractor_count.touched}"
+                formControlName="visible_distractor_count" name="visible_distractor_count" type="radio"
+                value="3">
+            <label for="radio3" class="radio-inline mx-1 pr-2">3</label>
             <div *ngIf="form.visible_distractor_count.touched && form.visible_distractor_count.invalid"
                  class="invalid-feedback">
-                <div *ngIf="form.visible_distractor_count.errors.required">Visible Distractor Count is Required.</div>
+                <div *ngIf="form.visible_distractor_count.errors.required">Visible Distractor Count is Required.
+                </div>
             </div>
         </div>
     </div>
     <div class="form-row m-3">
-        <div class="col-md-6">
+        <div class="col-md-12">
+            <div class="h5 p-3">Distractor Answers:</div>
             <table>
                 <tbody>
                 <tr *ngFor="let _ of distractors; index as i">
@@ -153,31 +157,35 @@
                         <app-ck-editor [(value)]="distractors[i].text"></app-ck-editor>
                     </td>
                     <td class="p-3">
-                        <button (click)="removeChoice(i)" class="btn btn-danger m-auto" type="button">Remove</button>
+                        <button (click)="removeChoice(i)" class="btn btn-danger m-auto" type="button">Remove
+                        </button>
                     </td>
                 </tr>
                 </tbody>
                 <tr>
                     <td class="p-3" colspan="2">
-                        <button (click)="addChoice()" class="btn btn-primary m-auto" type="button">Add Another</button>
+                        <button (click)="addChoice()" class="btn btn-primary m-auto" type="button">Add Another
+                        </button>
                     </td>
                 </tr>
             </table>
         </div>
     </div>
     <div class="form-row m-3">
-        <div class="col-md-6">
-            <app-json-editor [(value)]="this.variables" [name]="'variables'"></app-json-editor>
-        </div>
-        <div class="col-md-6">
+        <div class="h5 ml-3 pb-2">Variables:</div>
+        <div class="col-md-12 ml-3 text-muted">
             If you are not using variables,
             please don't add any variables
             and delete the existing ones.
         </div>
+        <div class="col-md-12">
+            <app-json-editor [(value)]="this.variables" [name]="'variables'"></app-json-editor>
+        </div>
     </div>
     <div class="form-row m-3">
-        <div class="col-md-6">
-            <button [disabled]="formGroup.invalid || !isSubmissionValid()" class="btn btn-success" id="submit">Submit
+        <div class="col-md-12">
+            <button [disabled]="formGroup.invalid || !isSubmissionValid()" class="btn btn-success" id="submit">
+                Submit
             </button>
         </div>
     </div>

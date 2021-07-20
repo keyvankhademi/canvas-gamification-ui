@@ -5,7 +5,8 @@ import {TestModule} from '@test/test.module';
 import {ApiService} from "@app/_services/api.service";
 import {HttpTestingController} from "@angular/common/http/testing";
 import {MOCK_COURSE_EVENT} from "@app/problems/_test/mock";
-import {MOCK_EVENT_TYPES} from "@app/course/_test/mock";
+import {MOCK_COURSE1, MOCK_EVENT_TYPES} from "@app/course/_test/mock";
+import {HttpResponse} from "@angular/common/http";
 
 describe('CourseEventService', () => {
     let courseEventService: CourseEventService;
@@ -72,5 +73,23 @@ describe('CourseEventService', () => {
         const request = httpMock.expectOne(apiService.getURL('event', 'get-event-types'));
         expect(request.request.method).toBe('GET');
         request.flush(MOCK_EVENT_TYPES);
+    });
+
+    it('getAllEvents', () => {
+        courseEventService.getAllEvents().subscribe((events) => {
+            expect(events).toEqual([MOCK_COURSE_EVENT]);
+        });
+        const request = httpMock.expectOne(apiService.getURL('event'));
+        expect(request.request.method).toBe('GET');
+        request.flush([MOCK_COURSE_EVENT]);
+    });
+
+    it('duplicateEvent', () => {
+        courseEventService.postDuplicateEvent(MOCK_COURSE_EVENT, MOCK_COURSE1.id).subscribe((response) => {
+            expect(response.status).toBeTruthy();
+        });
+        const request = httpMock.expectOne(apiService.getURL('event', 'duplicate-event'));
+        expect(request.request.method).toBe('POST');
+        request.flush(new HttpResponse());
     });
 });

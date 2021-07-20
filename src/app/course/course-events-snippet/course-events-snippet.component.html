@@ -1,7 +1,6 @@
 <ng-container *ngIf="user?.is_teacher">
-    <a class="btn btn-primary my-2 mr-3" [routerLink]="['/course', courseId, 'new-event']">Add an Event</a>
-    <!--TODO: Consider if this button should still even be here-->
-    <a class="btn btn-primary my-2" href="#">Import an Event</a>
+    <a [routerLink]="['/course', courseId, 'new-event']" class="btn btn-primary my-2 mr-3">Add an Event</a>
+    <a (click)="open(importEventModal)" [routerLink]="" class="btn btn-primary my-2">Import an Event</a>
 </ng-container>
 <hr/>
 <table class="table table-hover mt-1" data-toggle="table">
@@ -28,16 +27,16 @@
                 <td>
                     <div class="btn-container">
                         <ng-container *ngIf="event.is_allowed_to_open || user?.is_teacher; else notAllowedOpen">
-                            <a class="btn btn-primary mr-3"
-                               [routerLink]="['/course', courseId, 'event', event.id]">{{ getEventButtonText(event) }}</a>
+                            <a [routerLink]="['/course', courseId, 'event', event.id]"
+                               class="btn btn-primary mr-3">{{ getEventButtonText(event) }}</a>
                         </ng-container>
                         <ng-template #notAllowedOpen>
                             <!--Link to nowhere if you can't open. It's disabled however-->
                             <a class="btn btn-outline-info open-btn mr-3 disabled"
                                href="#">{{ getEventButtonText(event) }}</a>
                         </ng-template>
-                        <a *ngIf="event.has_edit_permission" class="btn btn-primary edit-btn"
-                           [routerLink]="['/course', courseId, 'new-event', event.id]">Edit</a>
+                        <a *ngIf="event.has_edit_permission" [routerLink]="['/course', courseId, 'new-event', event.id]"
+                           class="btn btn-primary edit-btn">Edit</a>
                     </div>
                 </td>
             </tr>
@@ -45,10 +44,45 @@
     </ng-container>
     <ng-template #tableEmpty>
         <tr>
-            <td colspan="6" class="bg-info">
+            <td class="bg-info" colspan="6">
                 <p class="text-center text-light m-0">There are currently no events in this course.</p>
             </td>
         </tr>
     </ng-template>
     </tbody>
 </table>
+<ng-template #importEventModal let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-basic-title">Select Event to Import</h3>
+        <button (click)="modal.dismiss()" aria-label="Close" class="close" type="button">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th class="text-center" scope="col">Id</th>
+                <th class="text-center" scope="col">Name</th>
+                <th class="text-center" scope="col">Type</th>
+                <th class="text-center" scope="col">Course Id</th>
+                <th class="text-center" scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let event of courseEvents">
+                <td class="text-center">{{event.id || 'None'}}</td>
+                <td class="text-center">{{event.name || 'None'}}</td>
+                <td class="text-center">{{event.type || 'None'}}</td>
+                <td class="text-center">{{event.course || 'None'}}</td>
+                <td class="text-center">
+                    <button class="btn btn-success" type="button" (click)="duplicateEvent(event, courseId)">Import</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button (click)="modal.dismiss()" class="btn btn-outline-primary" type="button">Close</button>
+    </div>
+</ng-template>

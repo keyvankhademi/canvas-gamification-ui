@@ -1,0 +1,18 @@
+<div class="card my-1">
+    <div class="card-header">
+        <h1>{{currentUqj?.question?.title}}</h1>
+    </div>
+    <div class="card-body">
+        <ng-container *ngIf="currentUqj?.question?.type_name === 'multiple choice question'">
+            <app-mcq-view-snippet [uqj]="currentUqj"></app-mcq-view-snippet>
+        </ng-container>
+        <ng-container *ngIf="currentUqj?.question?.type_name === 'java question'">
+            <app-java-view-snippet [uqj]="currentUqj"></app-java-view-snippet>
+        </ng-container>
+        <ng-container *ngIf="currentUqj?.question?.type_name === 'parsons question'">
+            <app-parsons-view-snippet [uqj]="currentUqj"></app-parsons-view-snippet>
+        </ng-container>
+        <button (click)="skipQuestion()" class="btn btn-outline-primary">Skip Question</button>
+    </div>
+</div>
+

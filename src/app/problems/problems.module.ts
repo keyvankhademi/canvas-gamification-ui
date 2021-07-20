@@ -73,6 +73,11 @@ import { ParsonsLinesComponent } from './problem-view/parsons-lines/parsons-line
         ProblemsRoutingModule,
         DragulaModule.forRoot(),
     ],
+    exports: [
+        McqViewSnippetComponent,
+        JavaViewSnippetComponent,
+        ParsonsViewSnippetComponent
+    ],
     providers: [
         DifficultyService,
         UqjService,

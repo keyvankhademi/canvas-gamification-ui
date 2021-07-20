@@ -12,6 +12,7 @@ import {HomepageComponent} from './components/homepage/homepage.component';
 import {UserActionsComponent} from '@app/components/homepage/user-actions/user-actions.component';
 import {NotFoundComponent} from '@app/components/general/not-found/not-found.component';
 import {ForbiddenComponent} from '@app/components/general/forbidden/forbidden.component';
+import {ProblemPracticeComponent} from "@app/components/problem-practice/problem-practice.component";
 
 
 const routes: Routes = [
@@ -51,6 +52,10 @@ const routes: Routes = [
     {
         path: 'actions',
         component: UserActionsComponent
+    },
+    {
+        path: 'practice',
+        component: ProblemPracticeComponent
     },
     {
         path: 'faq',
